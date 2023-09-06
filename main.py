@@ -107,7 +107,7 @@ for field in all_metadata_fields:
         processed_metadata_fields.append([field, ""])
 
 df = pd.DataFrame(processed_metadata_fields, columns=["Metadata Field", "Value"])
-all_metadata = all_metadata.append(df, ignore_index=True)
+all_metadata = all_metadata = pd.concat([all_metadata, df], ignore_index=True)
 
 
 # Create "results" directory if it doesn't exist
