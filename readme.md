@@ -2,7 +2,7 @@
 
 **Description:** In essence, this script automates the process of extracting specific metadata from a collection of PDF files (such as master theses) using the capabilities of the OpenAI API, and then stores this metadata in structured formats (CSV and XLSX) for further use or analysis.
 
-**Authors** Maurice Vanderfeesten, in [collaboration with ChatGPT-4](https://chat.openai.com/share/9de7d541-6772-4feb-9120-bfd95547ab0a) 
+**Authors** Maurice Vanderfeesten, in [collaboration with ChatGPT-4](https://chat.openai.com/share/83ac75e7-986f-4b4f-abb1-adc038fd1c92) 
 
 ## Getting Started
 
