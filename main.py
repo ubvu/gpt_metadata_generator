@@ -89,8 +89,13 @@ for pdf_file in pdf_files:
         )
 
         metadata_fields = response.choices[0].message['content'].strip().split("\n")
-        structured_fields = [field.split(":") for field in metadata_fields if ":" in field]
+        structured_fields = [field.split(": ", 1) for field in metadata_fields if ":" in field]
         all_metadata_fields.extend(structured_fields)
+
+    # Convert metadata fields to DataFrame and append to all_metadata
+    df = pd.DataFrame(all_metadata_fields, columns=["Metadata Field", "Value"])
+    df["File Name"] = pdf_file
+    all_metadata = pd.concat([all_metadata, df], ignore_index=True)
 
     # Convert metadata fields to DataFrame and append to all_metadata
     df = pd.DataFrame(all_metadata_fields, columns=["Metadata Field", "Value"])
