@@ -14,9 +14,9 @@ openai.api_key = config['openai_api_key']
 # Extract text from the PDF
 def extract_pdf_content(file_path):
     with open(file_path, 'rb') as file:
-        pdf_reader = PyPDF2.PdfReader(file)  # Use PdfReader instead of the deprecated PdfFileReader
+        pdf_reader = PyPDF2.PdfReader(file)
         content = ""
-        for page_num in range(len(pdf_reader.pages)):  # Updated loop condition to match the new PdfReader class
+        for page_num in range(len(pdf_reader.pages)):
             page = pdf_reader.pages[page_num]
             content += page.extract_text()
     return content
@@ -42,24 +42,21 @@ for pdf_file in pdf_files:
 
         current_token_count = 0
         for word in words:
-            # If adding the next word doesn't exceed the max token limit, add to the current segment
             if current_token_count + len(word.split()) <= max_tokens:
                 current_segment.append(word)
                 current_token_count += len(word.split())
             else:
-                # If it does exceed, move to the next segment
                 segments.append(" ".join(current_segment))
                 current_segment = [word]
                 current_token_count = len(word.split())
 
-        # Add the last segment if any words are left
         if current_segment:
             segments.append(" ".join(current_segment))
 
         return segments
 
     # Segment the PDF content into chunks
-    MAX_TOKENS_FOR_CONTENT = 1000  # Setting a buffer to ensure we don't exceed the model's limit
+    MAX_TOKENS_FOR_CONTENT = config['MAX_TOKENS_FOR_CONTENT']
     segments = segment_text(pdf_content, MAX_TOKENS_FOR_CONTENT)
 
     all_metadata_fields = []
@@ -87,7 +84,7 @@ for pdf_file in pdf_files:
         ]
 
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=config['model'],
             messages=messages
         )
 
@@ -96,19 +93,9 @@ for pdf_file in pdf_files:
 
     # Process the combined results from all segments   
     # Convert metadata fields to DataFrame and append to all_metadata
-    
-# Process all_metadata_fields to ensure each item has two values: field and value
-processed_metadata_fields = []
-for field in all_metadata_fields:
-    split_field = field.split(": ")
-    if len(split_field) == 2:
-        processed_metadata_fields.append(split_field)
-    else:
-        processed_metadata_fields.append([field, ""])
-
-df = pd.DataFrame(processed_metadata_fields, columns=["Metadata Field", "Value"])
-all_metadata = all_metadata = pd.concat([all_metadata, df], ignore_index=True)
-
+    df = pd.DataFrame(all_metadata_fields, columns=["Metadata Field", "Value"])
+    df.insert(0, "File Name", pdf_file)
+    all_metadata = all_metadata.append(df, ignore_index=True)
 
 # Create "results" directory if it doesn't exist
 results_directory = config['results_directory']
