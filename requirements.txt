@@ -2,3 +2,4 @@ openai
 PyPDF2
 pandas
 PyYAML
+openpyxl
