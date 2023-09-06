@@ -70,6 +70,8 @@ for pdf_file in pdf_files:
             - Title
             - Creator (Author)
             - Date
+            - Description
+            - Keywords
             - Type
             - Identifier (DOI)
             - Publisher
