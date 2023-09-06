@@ -96,9 +96,19 @@ for pdf_file in pdf_files:
 
     # Process the combined results from all segments   
     # Convert metadata fields to DataFrame and append to all_metadata
-    df = pd.DataFrame(all_metadata_fields, columns=["Metadata Field", "Value"])
-    df.insert(0, "File Name", pdf_file)
-    all_metadata = all_metadata.append(df, ignore_index=True)
+    
+# Process all_metadata_fields to ensure each item has two values: field and value
+processed_metadata_fields = []
+for field in all_metadata_fields:
+    split_field = field.split(": ")
+    if len(split_field) == 2:
+        processed_metadata_fields.append(split_field)
+    else:
+        processed_metadata_fields.append([field, ""])
+
+df = pd.DataFrame(processed_metadata_fields, columns=["Metadata Field", "Value"])
+all_metadata = all_metadata.append(df, ignore_index=True)
+
 
 # Create "results" directory if it doesn't exist
 results_directory = config['results_directory']
