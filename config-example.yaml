@@ -1,5 +1,5 @@
 openai_api_key: YOUR_OPENAI_API_KEY # Get your OpenAI API key here: https://platform.openai.com/account/api-keys
-input_directory: path_to_input_directory # Path to the directory containing input PDF files.
+input_directory: pdfs # Path to the directory containing input PDF files.
 results_directory: results # Path where you'd like to save the results.
 max_tokens: 500 # Maximum number of tokens for the OpenAI API response.
 MAX_TOKENS_FOR_CONTENT: 1000 # Setting a buffer to ensure we don't exceed the model's limit
