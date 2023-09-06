@@ -58,7 +58,7 @@ for pdf_file in pdf_files:
     # Segment the PDF content into chunks
     MAX_TOKENS_FOR_CONTENT = config['MAX_TOKENS_FOR_CONTENT']
     segments = segment_text(pdf_content, MAX_TOKENS_FOR_CONTENT)
-
+    
     all_metadata_fields = []
 
     # Process each segment
@@ -84,18 +84,18 @@ for pdf_file in pdf_files:
         ]
 
         response = openai.ChatCompletion.create(
-            model=config['model'],
+            model=config["model"],
             messages=messages
         )
 
         metadata_fields = response.choices[0].message['content'].strip().split("\n")
-        all_metadata_fields.extend(metadata_fields)
+        structured_fields = [field.split(":") for field in metadata_fields if ":" in field]
+        all_metadata_fields.extend(structured_fields)
 
-    # Process the combined results from all segments   
     # Convert metadata fields to DataFrame and append to all_metadata
     df = pd.DataFrame(all_metadata_fields, columns=["Metadata Field", "Value"])
     df.insert(0, "File Name", pdf_file)
-    all_metadata = all_metadata.append(df, ignore_index=True)
+    all_metadata = pd.concat([all_metadata, df], ignore_index=True)
 
 # Create "results" directory if it doesn't exist
 results_directory = config['results_directory']
