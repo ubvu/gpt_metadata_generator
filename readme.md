@@ -12,16 +12,17 @@
 
 Ensure you have the following installed on your system:
 
-- Python 3.x
-- `pip` (Python Package Installer)
+- [git](https://git-scm.com/)
+- [Python 3.x](https://www.python.org/)
+- [`pip` (Python Package Installer)](https://pypi.org/project/pip/)
 
 ### Installation & Setup
 
 1. **Clone the Repository**:
    
    ```bash
-   git clone https://github.com/your_username/your_project_name.git
-   cd your_project_name
+   git clone https://github.com/ubvu/gpt_metadata_generator.git
+   cd gpt_metadata_generator
    ```
 
 2. **Set Up a Virtual Environment** (recommended):
@@ -42,15 +43,17 @@ Ensure you have the following installed on your system:
 1. Rename `config-example.yaml` to `config.yaml`:
 
    ```bash
-   mv configuration-example.yaml configuration.yaml  # On Windows use: rename configuration-example.yaml configuration.yaml
+   mv config-example.yaml config.yaml  # On Windows use: rename config-example.yaml config.yaml
    ```
 
-2. Open `configuration.yaml` in your preferred text editor. Update the various fields to match your setup and preferences. For example:
+2. Open `config.yaml` in your preferred text editor. Update the various fields to match your setup and preferences. For example:
 
    - `openai_api_key`: Your OpenAI API key.
    - `input_directory`: Path to the directory containing input PDF files.
    - `results_directory`: Path where you'd like to save the results.
    - `max_tokens`: Maximum number of tokens for the OpenAI API response.
+   - `MAX_TOKENS_FOR_CONTENT`: Setting a buffer size for the segments / chunk the pdf to ensure we don't feed the model too many tokens, exeeding its limit.
+   - `model`: Setting the model to use default is "gpt-3.5-turbo" , include the quotes!
 
 ## Usage
 
