@@ -4,7 +4,7 @@
 
 **Authors** Maurice Vanderfeesten, in [collaboration with ChatGPT-4](https://chat.openai.com/share/83ac75e7-986f-4b4f-abb1-adc038fd1c92) 
 
-![A machine with eight arms extract word-like particles  from a book in lab, and puts these words in a box.](./images/152940_A%20machine%20with%20eight%20arms%20extract%20word-like%20partic_xl-1024-v1-0.png)
+![A friendly looking robot with eight arms extracts word-like particles from a book in a lab, and puts these word-like particles in a box next to it.](./images/438177_A%20friendly%20looking%20robot%20with%20eight%20arms%20extracts%20_xl-1024-v1-0.png)
 
 ## Getting Started
 
